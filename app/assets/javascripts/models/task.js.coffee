@@ -10,17 +10,3 @@ RailsEmberModelEventssourceExample.Task.reopenClass
   rootKey: 'task'
   collectionKey: 'tasks'
   adapter: Ember.RESTAdapter.create()
-
-
-jQuery(document).ready ->
-  setTimeout (->
-    source = new EventSource("/tasks/events")
-    source.addEventListener "tasks.update", (e) ->
-      data = JSON.parse e.data
-
-      if data.task?
-        record = RailsEmberModelEventssourceExample.Task.find(data.task.id)
-        record.setProperties
-          name: data.task.name
-          state: data.task.state
-  ), 1
